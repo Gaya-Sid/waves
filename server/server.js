@@ -7,11 +7,19 @@ const mongoose = require("mongoose");
 const xss = require("xss-clean");
 const mongoSanitaize = require("express-mongo-sanitize");
 
+const routes = require("./routes");
+
+// Middleware
+
+// body parse
+app.use(express.json());
+
 // Sanitize
 app.use(xss());
 app.use(mongoSanitaize());
 
-
+// routes
+app.use("/api", routes);
 
 app.listen(port, () => {
   console.log(
