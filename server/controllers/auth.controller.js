@@ -1,9 +1,17 @@
 const { authService } = require("../services");
 
 const authController = {
-  async hello() {
+  async isauth() {
     const hello = await authService.sayHello();
     console.log(hello);
+  },
+  async register() {
+    try {
+    } catch (error) {}
+  },
+  async signIn() {
+    try {
+    } catch (error) {}
   }
 };
 
