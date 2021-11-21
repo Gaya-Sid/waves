@@ -1,4 +1,5 @@
 const { authService } = require("../services");
+const httpStatus = require("http-status");
 
 const authController = {
   async isauth() {},
@@ -12,7 +13,7 @@ const authController = {
 
       res
         .cookie("x-access-token", token)
-        .status(200)
+        .status(httpStatus.CREATED)
         .json({
           user,
           token
@@ -21,9 +22,26 @@ const authController = {
       next(error);
     }
   },
-  async signIn() {
+  async signIn(req, res, next) {
     try {
-    } catch (error) {}
+      const { email, password } = req.body;
+      const user = await authService.signInWithEmailAndPassword(
+        email,
+        password
+      );
+
+      const token = await authService.generateAuthToken(user);
+
+      res
+        .cookie("x-access-token", token)
+        .status(httpStatus.OK)
+        .json({
+          user,
+          token
+        });
+    } catch (error) {
+      next(error);
+    }
   }
 };
 
