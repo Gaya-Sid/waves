@@ -6,7 +6,14 @@ const authController = {
     try {
       const { email, password } = req.body;
       const user = await authService.createUser(email, password);
-      res.status(200).json(user);
+      const token = await authService.generateAuthToken(user);
+      res
+        .cookie("x-access-token", token)
+        .status(200)
+        .json({
+          user,
+          token
+        });
     } catch (error) {
       console.log(error);
     }
