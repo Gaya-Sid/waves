@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+require("dotenv").config();
 
 const port = process.env.PORT || 3000;
 
@@ -8,6 +9,13 @@ const xss = require("xss-clean");
 const mongoSanitaize = require("express-mongo-sanitize");
 
 const routes = require("./routes");
+
+// Database
+const mongoUri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}?retryWrites=true&w=majority`;
+mongoose.connect(mongoUri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
 // Middleware
 
