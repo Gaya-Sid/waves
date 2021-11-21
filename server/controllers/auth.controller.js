@@ -2,7 +2,6 @@ const { authService } = require("../services");
 const httpStatus = require("http-status");
 
 const authController = {
-  async isauth() {},
   async register(req, res, next) {
     try {
       const { email, password } = req.body;
@@ -39,6 +38,13 @@ const authController = {
           user,
           token
         });
+    } catch (error) {
+      next(error);
+    }
+  },
+  async isauth(req, res, next) {
+    try {
+      res.send(req.user);
     } catch (error) {
       next(error);
     }
