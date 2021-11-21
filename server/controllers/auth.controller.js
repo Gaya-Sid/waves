@@ -7,6 +7,9 @@ const authController = {
       const { email, password } = req.body;
       const user = await authService.createUser(email, password);
       const token = await authService.generateAuthToken(user);
+
+      // send register email
+
       res
         .cookie("x-access-token", token)
         .status(200)
@@ -15,7 +18,7 @@ const authController = {
           token
         });
     } catch (error) {
-      console.log(error);
+      next(error);
     }
   },
   async signIn() {
