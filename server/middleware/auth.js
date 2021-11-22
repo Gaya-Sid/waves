@@ -1,7 +1,7 @@
 const passport = require("passport");
 const { ApiError } = require("./apiError");
 const httpStatus = require("http-status");
-const roles = require("../config/roles");
+const { roles } = require("../config/roles");
 
 const verify = (req, res, resolve, reject, rights) => async (err, user) => {
   if (err || !user) {

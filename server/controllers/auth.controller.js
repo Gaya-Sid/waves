@@ -44,7 +44,7 @@ const authController = {
   },
   async isauth(req, res, next) {
     try {
-      res.send(req.user);
+      await res.send(req.user);
     } catch (error) {
       next(error);
     }

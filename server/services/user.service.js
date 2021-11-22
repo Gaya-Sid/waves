@@ -10,6 +10,15 @@ const findUserByEmail = async email => {
   }
 };
 
+const findUserById = async _id => {
+  try {
+    return User.findById(_id);
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
-  findUserByEmail
+  findUserByEmail,
+  findUserById
 };
