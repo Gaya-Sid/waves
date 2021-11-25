@@ -18,7 +18,29 @@ const findUserById = async _id => {
   }
 };
 
+const updateUserProfile = async req => {
+  try {
+    // **************** validate before update !!! ****************
+    const user = await User.findByIdAndUpdate(
+      { _id: req.user._id },
+      {
+        $set: {
+          ...req.body.data
+        }
+      },
+      { new: true }
+    );
+    if (!user) {
+      throw new ApiError(httpStatus.NOT_FOUND, "User not found");
+    }
+    return user;
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   findUserByEmail,
-  findUserById
+  findUserById,
+  updateUserProfile
 };
